@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/main.css">
+    <title>MyVueProj</title>
+</head>
+<body style="background-color: rgb(44, 44, 44);">
+    <div id = "app_container" style = "text-align:center;">
+       <p v-if="name">Welcome {{name}} {{DailyTime()}}</p>
+       <p v-else>Welcome unkown {{DailyTime()}}</p>
+     </div>
+     <script src="./js/vue.js"></script>
+     <script>
+         var vm=new Vue({
+             el : '#app_container',
+             data : {
+                 name : '',
+                 skills:['html','css','js'],
+                 tests:[
+                     {testName:"html test",
+                     testResult:"99%"},
+                     {testName:"c++ test",
+                     testResult:"97%"},
+                     {testName:"java test",
+                    testResult:"98%"}],
+                    date:new Date(),
+
+             },
+             methods:{
+                 DailyTime:function(){
+                    var ampm;
+                    var dailyTime=this.date.getHours();
+                    if(dailyTime>=12){
+                        ampm=' PM';
+                        return 'time now is: ' + dailyTime +':'+this.date.getMinutes()+ampm;
+                    }
+                    else{
+                        ampm=' AM'
+                        return 'time now is: ' + dailyTime +':'+this.date.getMinutes()+ampm;
+                    }
+                
+                 }
+             }
+            
+         })
+     </script>
+</body>
+</html>
