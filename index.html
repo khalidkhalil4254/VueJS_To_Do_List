@@ -5,24 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/main.css">
-    <title>MyVueProj</title>
+    <link rel="icon" href="./to-do-list.png">
+    <title>MyVueProject</title>
 </head>
 <body style="background-color: rgb(44, 44, 44);">
     <div id = "app_container" style = "text-align:center;">
-        <input id="inpt" type="text" placeholder="your Name">
+        <input id="inpt" type="text" placeholder="Task">
         <button @click="AddName" id="btn">SetTask</button>
-        <h1>Added Names</h1>
-       <ul>
-        <li style="list-style: none;color: blanchedalmond;font-weight: bolder;font-size: 2vw;margin: 5vw;" v-for="(name,index) in names">
-             {{index}} - {{name}} <button style="margin-right:18vw;margin-left: 18vw;" @click="deleteName">delete item</button><button @click="">job done</button>
-        </li>
-       </ul>
-       <h1>Deleted Names</h1>
-       <ul style="margin-top: 15vh;">
-        <li style="list-style: none;color: blanchedalmond;font-weight: bolder;font-size: 2vw;margin: 5vw;" v-for="(deletedname,index) in deletedNames">
-            {{index}} - {{deletedname}}
-        </li>
-       </ul>
+        <h1 style="background-color: blanchedalmond;">To-Do-Tasks</h1>
+        <button style="margin:25px;background-color: whitesmoke;border: none;padding: 5px;" @click="deleteName">Completed-the-first-task</button>
+        <center><table style="border: 2px solid black;">
+            <tr>
+                <th>index</th>
+                <th>AddedTasks</th>
+            </tr>
+            <tr v-for="(name,index) in names">
+                <td> {{index}} </td>
+                <td> {{name}} </td>
+            </tr>
+              
+          </table></center>
+       <h1 style="background-color: blanchedalmond;">Done-Tasks</h1>
+       <center><table style="border: 2px solid black;">
+        <tr>
+            <th>index</th>
+            <th>AddedTasks</th>
+        </tr>
+        <tr v-for="(deletedName,index) in deletedNames">
+            <td> {{index}} </td>
+            <td> {{deletedName}} </td>
+        </tr>
+          
+      </table></center>
+       <input style="margin:25px;background-color: whitesmoke;border: none;padding: 5px;" type="button" @click="reset" value="Delete-activities-history">
 
        <!-- <p v-else>Welcome unkown {{DailyTime()}}</p> -->
      </div>
@@ -37,6 +52,9 @@
                     deletedNames:[],
              },
              methods:{
+                reset:function(){
+                    this.deletedNames=[];
+                } ,
                  DailyTime:function(){
                     var ampm;
                     var dailyTime=this.date.getHours();
@@ -52,16 +70,19 @@
                  },
                  AddName:function(){
                      var input=document.getElementById('inpt').value;
-                     foo:if(input==''){
-                         break foo;
+                     if(input!='' && input!=this.names[this.names.length-1]){
+                        this.names.push(input);
                      }
-                         this.names.push(input);
+                         
                          },
                 deleteName:function(){
-                    var firstItem=this.names[0];
+                    if(this.names.length!=0){
+                        var firstItem=this.names[0];
                     this.names.shift();
-                    this.deletedNames.push(this.names[0]);
-                    
+                    this.deletedNames.push(firstItem);
+                    }
+                
+                
                 }
 
                  
