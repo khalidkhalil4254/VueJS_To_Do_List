@@ -9,25 +9,32 @@
 </head>
 <body style="background-color: rgb(44, 44, 44);">
     <div id = "app_container" style = "text-align:center;">
-       <p v-if="name">Welcome {{name}} {{DailyTime()}}</p>
-       <p v-else>Welcome unkown {{DailyTime()}}</p>
+        <input id="inpt" type="text" placeholder="your Name">
+        <button @click="AddName" id="btn">SetTask</button>
+        <h1>Added Names</h1>
+       <ul>
+        <li style="list-style: none;color: blanchedalmond;font-weight: bolder;font-size: 2vw;margin: 5vw;" v-for="(name,index) in names">
+             {{index}} - {{name}} <button style="margin-right:18vw;margin-left: 18vw;" @click="deleteName">delete item</button><button @click="">job done</button>
+        </li>
+       </ul>
+       <h1>Deleted Names</h1>
+       <ul style="margin-top: 15vh;">
+        <li style="list-style: none;color: blanchedalmond;font-weight: bolder;font-size: 2vw;margin: 5vw;" v-for="(deletedname,index) in deletedNames">
+            {{index}} - {{deletedname}}
+        </li>
+       </ul>
+
+       <!-- <p v-else>Welcome unkown {{DailyTime()}}</p> -->
      </div>
      <script src="./js/vue.js"></script>
      <script>
          var vm=new Vue({
              el : '#app_container',
              data : {
-                 name : '',
                  skills:['html','css','js'],
-                 tests:[
-                     {testName:"html test",
-                     testResult:"99%"},
-                     {testName:"c++ test",
-                     testResult:"97%"},
-                     {testName:"java test",
-                    testResult:"98%"}],
-                    date:new Date(),
-
+                    date:new Date(),    
+                    names:[],
+                    deletedNames:[],
              },
              methods:{
                  DailyTime:function(){
@@ -42,10 +49,26 @@
                         return 'time now is: ' + dailyTime +':'+this.date.getMinutes()+ampm;
                     }
                 
-                 }
+                 },
+                 AddName:function(){
+                     var input=document.getElementById('inpt').value;
+                     foo:if(input==''){
+                         break foo;
+                     }
+                         this.names.push(input);
+                         },
+                deleteName:function(){
+                    var firstItem=this.names[0];
+                    this.names.shift();
+                    this.deletedNames.push(this.names[0]);
+                    
+                }
+
+                 
+                
+        
              }
-            
-         })
+         });
      </script>
 </body>
 </html>
